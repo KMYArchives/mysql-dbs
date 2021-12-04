@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2021 at 07:33 PM
+-- Generation Time: Dec 04, 2021 at 03:14 PM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `ws_collections` (
   `id` int(11) UNSIGNED NOT NULL,
-  `slug` varchar(36) NOT NULL,
+  `slug` varchar(48) NOT NULL,
   `name` varchar(48) NOT NULL,
   `collation` varchar(36) NOT NULL DEFAULT 'utf8_general_ci',
   `privacy` enum('public','private') NOT NULL DEFAULT 'public',
@@ -68,7 +68,7 @@ CREATE TABLE `ws_commits` (
 
 CREATE TABLE `ws_configs` (
   `id` int(11) UNSIGNED NOT NULL,
-  `slug` varchar(36) NOT NULL,
+  `slug` varchar(48) NOT NULL,
   `name` varchar(16) NOT NULL,
   `value` text NOT NULL,
   `updated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -84,7 +84,7 @@ CREATE TABLE `ws_configs` (
 
 CREATE TABLE `ws_contacts` (
   `id` int(11) UNSIGNED NOT NULL,
-  `slug` varchar(36) NOT NULL,
+  `slug` varchar(48) NOT NULL,
   `contact_id` int(11) UNSIGNED NOT NULL,
   `favorited` enum('true','false') NOT NULL DEFAULT 'false',
   `invite_accept` enum('true','false') NOT NULL DEFAULT 'false',
@@ -108,7 +108,7 @@ INSERT INTO `ws_contacts` (`id`, `slug`, `contact_id`, `favorited`, `invite_acce
 
 CREATE TABLE `ws_diagrams` (
   `id` int(11) UNSIGNED NOT NULL,
-  `slug` varchar(36) NOT NULL,
+  `slug` varchar(48) NOT NULL,
   `image` varchar(48) NOT NULL,
   `image_id` varchar(36) NOT NULL,
   `delete_hash` varchar(48) DEFAULT NULL,
@@ -130,7 +130,7 @@ CREATE TABLE `ws_diagrams` (
 
 CREATE TABLE `ws_hashes` (
   `id` int(11) UNSIGNED NOT NULL,
-  `slug` varchar(36) NOT NULL,
+  `slug` varchar(48) NOT NULL,
   `json_file` varchar(36) NOT NULL,
   `name` varchar(48) NOT NULL,
   `size` int(11) UNSIGNED NOT NULL,
@@ -150,7 +150,7 @@ CREATE TABLE `ws_hashes` (
 
 CREATE TABLE `ws_history` (
   `id` int(11) UNSIGNED NOT NULL,
-  `slug` varchar(36) NOT NULL,
+  `slug` varchar(48) NOT NULL,
   `name` varchar(36) NOT NULL,
   `type` varchar(36) NOT NULL,
   `db` varchar(48) NOT NULL,
@@ -170,7 +170,7 @@ CREATE TABLE `ws_history` (
 
 CREATE TABLE `ws_models` (
   `id` int(11) UNSIGNED NOT NULL,
-  `slug` varchar(36) NOT NULL,
+  `slug` varchar(48) NOT NULL,
   `sql_file` varchar(36) NOT NULL,
   `json_file` varchar(36) NOT NULL,
   `name` varchar(48) NOT NULL,
@@ -198,7 +198,7 @@ INSERT INTO `ws_models` (`id`, `slug`, `sql_file`, `json_file`, `name`, `metadat
 
 CREATE TABLE `ws_models_linked` (
   `id` int(11) UNSIGNED NOT NULL,
-  `slug` varchar(36) NOT NULL,
+  `slug` varchar(48) NOT NULL,
   `origin` int(11) UNSIGNED NOT NULL,
   `target` int(11) UNSIGNED NOT NULL,
   `added_in` datetime NOT NULL DEFAULT current_timestamp(),
@@ -213,7 +213,7 @@ CREATE TABLE `ws_models_linked` (
 
 CREATE TABLE `ws_notifications` (
   `id` int(10) UNSIGNED NOT NULL,
-  `slug` varchar(36) NOT NULL,
+  `slug` varchar(48) NOT NULL,
   `item` int(11) UNSIGNED NOT NULL,
   `type` varchar(16) NOT NULL,
   `metadata` text NOT NULL,
@@ -229,7 +229,7 @@ CREATE TABLE `ws_notifications` (
 
 CREATE TABLE `ws_share` (
   `id` int(11) UNSIGNED NOT NULL,
-  `slug` varchar(36) NOT NULL,
+  `slug` varchar(48) NOT NULL,
   `sql_file` varchar(36) NOT NULL,
   `json_file` varchar(36) NOT NULL,
   `name` varchar(36) NOT NULL,
@@ -248,7 +248,7 @@ CREATE TABLE `ws_share` (
 
 CREATE TABLE `ws_sync` (
   `id` int(11) UNSIGNED NOT NULL,
-  `slug` varchar(36) NOT NULL,
+  `slug` varchar(48) NOT NULL,
   `filename` varchar(36) NOT NULL,
   `prod_id` int(11) UNSIGNED NOT NULL,
   `params` text DEFAULT NULL,
@@ -266,7 +266,7 @@ CREATE TABLE `ws_sync` (
 
 CREATE TABLE `ws_tasks` (
   `id` int(11) UNSIGNED NOT NULL,
-  `slug` varchar(36) NOT NULL,
+  `slug` varchar(48) NOT NULL,
   `name` varchar(36) NOT NULL,
   `timer` varchar(30) NOT NULL,
   `task` text NOT NULL,
@@ -284,7 +284,7 @@ CREATE TABLE `ws_tasks` (
 
 CREATE TABLE `ws_tokens` (
   `id` int(11) UNSIGNED NOT NULL,
-  `slug` varchar(36) NOT NULL,
+  `slug` varchar(48) NOT NULL,
   `token` varchar(64) NOT NULL,
   `name` varchar(36) NOT NULL,
   `expires_in` datetime DEFAULT NULL,
