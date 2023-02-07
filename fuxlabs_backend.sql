@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 13, 2022 at 11:17 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.0.13
+-- Tempo de geração: 06-Fev-2023 às 20:56
+-- Versão do servidor: 10.4.27-MariaDB
+-- versão do PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `fuxlabs_backend`
+-- Banco de dados: `fuxlabs_backend`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ws_admins`
+-- Estrutura da tabela `ws_admins`
 --
 
 CREATE TABLE `ws_admins` (
@@ -35,10 +35,10 @@ CREATE TABLE `ws_admins` (
   `access_level` int(1) UNSIGNED NOT NULL DEFAULT 0,
   `added_in` datetime NOT NULL DEFAULT current_timestamp(),
   `admin_id` int(11) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `ws_admins`
+-- Extraindo dados da tabela `ws_admins`
 --
 
 INSERT INTO `ws_admins` (`id`, `name`, `email`, `pass`, `access_level`, `added_in`, `admin_id`) VALUES
@@ -47,7 +47,53 @@ INSERT INTO `ws_admins` (`id`, `name`, `email`, `pass`, `access_level`, `added_i
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ws_clients`
+-- Estrutura da tabela `ws_app_files`
+--
+
+CREATE TABLE `ws_app_files` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `slug` varchar(48) NOT NULL,
+  `prod_id` int(11) UNSIGNED NOT NULL,
+  `type` varchar(16) NOT NULL,
+  `original_name` text NOT NULL,
+  `new_name` text NOT NULL,
+  `added_in` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Extraindo dados da tabela `ws_app_files`
+--
+
+INSERT INTO `ws_app_files` (`id`, `slug`, `prod_id`, `type`, `original_name`, `new_name`, `added_in`) VALUES
+(1, '8EpB8nKO5aGNTI7lFj7oedJADgqszDCXjj2EINsiQEG', 1, 'database', 'PGpdICsEI6Q5W9VrwswNfI0miieIxikbKC3FE4f.db', 'dbackpro.db', '2023-02-06 20:47:52');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `ws_backups`
+--
+
+CREATE TABLE `ws_backups` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `slug` varchar(48) NOT NULL,
+  `prod_id` int(11) UNSIGNED NOT NULL,
+  `filename` text NOT NULL,
+  `added_in` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_in` datetime NOT NULL DEFAULT current_timestamp(),
+  `username` int(11) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Extraindo dados da tabela `ws_backups`
+--
+
+INSERT INTO `ws_backups` (`id`, `slug`, `prod_id`, `filename`, `added_in`, `updated_in`, `username`) VALUES
+(1, 'syOXXurEb2l4sWhOUzse9jdg3SOzv50ISYsJn54L', 1, 'PcjMvdZB3vAWjWX9YWIHYmRkS34KAOHvzeaWv3cxk6.db', '2023-02-06 20:08:04', '2023-02-06 20:08:04', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `ws_clients`
 --
 
 CREATE TABLE `ws_clients` (
@@ -61,10 +107,10 @@ CREATE TABLE `ws_clients` (
   `ip` varchar(64) NOT NULL,
   `confirmed` enum('true','false') NOT NULL DEFAULT 'false',
   `added_in` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `ws_clients`
+-- Extraindo dados da tabela `ws_clients`
 --
 
 INSERT INTO `ws_clients` (`id`, `email`, `user_id`, `username`, `pass`, `name`, `gender`, `ip`, `confirmed`, `added_in`) VALUES
@@ -73,7 +119,7 @@ INSERT INTO `ws_clients` (`id`, `email`, `user_id`, `username`, `pass`, `name`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ws_coupons`
+-- Estrutura da tabela `ws_coupons`
 --
 
 CREATE TABLE `ws_coupons` (
@@ -87,12 +133,12 @@ CREATE TABLE `ws_coupons` (
   `expires_in` varchar(24) NOT NULL,
   `added_in` datetime NOT NULL DEFAULT current_timestamp(),
   `admin_id` int(11) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ws_devices`
+-- Estrutura da tabela `ws_devices`
 --
 
 CREATE TABLE `ws_devices` (
@@ -109,10 +155,10 @@ CREATE TABLE `ws_devices` (
   `favorited` enum('true','false') NOT NULL DEFAULT 'false',
   `added_in` datetime NOT NULL DEFAULT current_timestamp(),
   `username` int(11) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `ws_devices`
+-- Extraindo dados da tabela `ws_devices`
 --
 
 INSERT INTO `ws_devices` (`id`, `slug`, `uuid`, `hostname`, `ip`, `os`, `arch`, `cpu`, `model`, `type`, `favorited`, `added_in`, `username`) VALUES
@@ -121,7 +167,7 @@ INSERT INTO `ws_devices` (`id`, `slug`, `uuid`, `hostname`, `ip`, `os`, `arch`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ws_features`
+-- Estrutura da tabela `ws_features`
 --
 
 CREATE TABLE `ws_features` (
@@ -135,12 +181,12 @@ CREATE TABLE `ws_features` (
   `prod_id` int(11) UNSIGNED NOT NULL,
   `added_in` datetime NOT NULL DEFAULT current_timestamp(),
   `admin_id` int(11) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ws_images`
+-- Estrutura da tabela `ws_images`
 --
 
 CREATE TABLE `ws_images` (
@@ -155,10 +201,10 @@ CREATE TABLE `ws_images` (
   `size` int(11) UNSIGNED NOT NULL,
   `admin_id` int(11) UNSIGNED NOT NULL,
   `added_in` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `ws_images`
+-- Extraindo dados da tabela `ws_images`
 --
 
 INSERT INTO `ws_images` (`id`, `slug`, `filename`, `prod_id`, `name`, `title`, `type`, `preview`, `size`, `admin_id`, `added_in`) VALUES
@@ -175,7 +221,7 @@ INSERT INTO `ws_images` (`id`, `slug`, `filename`, `prod_id`, `name`, `title`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ws_keys_rules`
+-- Estrutura da tabela `ws_keys_rules`
 --
 
 CREATE TABLE `ws_keys_rules` (
@@ -193,10 +239,10 @@ CREATE TABLE `ws_keys_rules` (
   `frequencies` mediumtext NOT NULL,
   `admin_id` int(11) UNSIGNED NOT NULL,
   `added_in` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `ws_keys_rules`
+-- Extraindo dados da tabela `ws_keys_rules`
 --
 
 INSERT INTO `ws_keys_rules` (`id`, `slug`, `prod_id`, `trial`, `prefix`, `number_chunks`, `chars_per_chunks`, `includes_symbols`, `separate_chunk_text`, `max_devices`, `types`, `frequencies`, `admin_id`, `added_in`) VALUES
@@ -205,7 +251,7 @@ INSERT INTO `ws_keys_rules` (`id`, `slug`, `prod_id`, `trial`, `prefix`, `number
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ws_licenses`
+-- Estrutura da tabela `ws_licenses`
 --
 
 CREATE TABLE `ws_licenses` (
@@ -218,10 +264,10 @@ CREATE TABLE `ws_licenses` (
   `favorited` enum('true','false') NOT NULL DEFAULT 'false',
   `added_in` datetime NOT NULL DEFAULT current_timestamp(),
   `username` int(11) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `ws_licenses`
+-- Extraindo dados da tabela `ws_licenses`
 --
 
 INSERT INTO `ws_licenses` (`id`, `slug`, `serial_number`, `order_id`, `prod_id`, `frequency`, `favorited`, `added_in`, `username`) VALUES
@@ -230,7 +276,7 @@ INSERT INTO `ws_licenses` (`id`, `slug`, `serial_number`, `order_id`, `prod_id`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ws_linked`
+-- Estrutura da tabela `ws_linked`
 --
 
 CREATE TABLE `ws_linked` (
@@ -241,10 +287,10 @@ CREATE TABLE `ws_linked` (
   `trials` enum('true','false') NOT NULL DEFAULT 'false',
   `added_in` datetime NOT NULL DEFAULT current_timestamp(),
   `username` int(11) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `ws_linked`
+-- Extraindo dados da tabela `ws_linked`
 --
 
 INSERT INTO `ws_linked` (`id`, `slug_item`, `license_id`, `device_id`, `trials`, `added_in`, `username`) VALUES
@@ -253,7 +299,7 @@ INSERT INTO `ws_linked` (`id`, `slug_item`, `license_id`, `device_id`, `trials`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ws_orders`
+-- Estrutura da tabela `ws_orders`
 --
 
 CREATE TABLE `ws_orders` (
@@ -269,10 +315,10 @@ CREATE TABLE `ws_orders` (
   `order_status` varchar(30) NOT NULL,
   `added_in` datetime NOT NULL DEFAULT current_timestamp(),
   `username` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `ws_orders`
+-- Extraindo dados da tabela `ws_orders`
 --
 
 INSERT INTO `ws_orders` (`id`, `slug`, `ch_id`, `txn_id`, `cus_id`, `card_id`, `prod_id`, `amount`, `discount`, `order_status`, `added_in`, `username`) VALUES
@@ -281,7 +327,7 @@ INSERT INTO `ws_orders` (`id`, `slug`, `ch_id`, `txn_id`, `cus_id`, `card_id`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ws_otp_code`
+-- Estrutura da tabela `ws_otp_code`
 --
 
 CREATE TABLE `ws_otp_code` (
@@ -292,12 +338,12 @@ CREATE TABLE `ws_otp_code` (
   `added_in` datetime NOT NULL DEFAULT current_timestamp(),
   `expires_in` datetime NOT NULL,
   `username` int(11) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ws_pages`
+-- Estrutura da tabela `ws_pages`
 --
 
 CREATE TABLE `ws_pages` (
@@ -316,10 +362,10 @@ CREATE TABLE `ws_pages` (
   `added_in` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_in` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `admin_id` int(11) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `ws_pages`
+-- Extraindo dados da tabela `ws_pages`
 --
 
 INSERT INTO `ws_pages` (`id`, `slug`, `title`, `featured`, `content`, `tags`, `access`, `publish`, `show_date_time`, `show_on_menu`, `prod_id`, `page_linked`, `added_in`, `updated_in`, `admin_id`) VALUES
@@ -329,7 +375,7 @@ INSERT INTO `ws_pages` (`id`, `slug`, `title`, `featured`, `content`, `tags`, `a
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ws_prices`
+-- Estrutura da tabela `ws_prices`
 --
 
 CREATE TABLE `ws_prices` (
@@ -344,10 +390,10 @@ CREATE TABLE `ws_prices` (
   `updated_in` datetime NOT NULL DEFAULT current_timestamp(),
   `added_in` datetime NOT NULL DEFAULT current_timestamp(),
   `admin_id` int(11) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `ws_prices`
+-- Extraindo dados da tabela `ws_prices`
 --
 
 INSERT INTO `ws_prices` (`id`, `slug`, `prod_id`, `price`, `currency`, `exchange`, `discount`, `refunds`, `updated_in`, `added_in`, `admin_id`) VALUES
@@ -356,7 +402,7 @@ INSERT INTO `ws_prices` (`id`, `slug`, `prod_id`, `price`, `currency`, `exchange
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ws_products`
+-- Estrutura da tabela `ws_products`
 --
 
 CREATE TABLE `ws_products` (
@@ -367,10 +413,10 @@ CREATE TABLE `ws_products` (
   `status` enum('true','false') NOT NULL DEFAULT 'true',
   `admin_id` int(11) NOT NULL,
   `added_in_item` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `ws_products`
+-- Extraindo dados da tabela `ws_products`
 --
 
 INSERT INTO `ws_products` (`id`, `slug_item`, `name`, `slogan`, `status`, `admin_id`, `added_in_item`) VALUES
@@ -379,7 +425,7 @@ INSERT INTO `ws_products` (`id`, `slug_item`, `name`, `slogan`, `status`, `admin
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ws_sessions`
+-- Estrutura da tabela `ws_sessions`
 --
 
 CREATE TABLE `ws_sessions` (
@@ -390,12 +436,12 @@ CREATE TABLE `ws_sessions` (
   `expires_in` datetime NOT NULL,
   `added_in` datetime NOT NULL,
   `username` int(11) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ws_setups`
+-- Estrutura da tabela `ws_setups`
 --
 
 CREATE TABLE `ws_setups` (
@@ -415,10 +461,10 @@ CREATE TABLE `ws_setups` (
   `admin_id` int(11) UNSIGNED NOT NULL,
   `updated_in` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `added_in` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `ws_setups`
+-- Extraindo dados da tabela `ws_setups`
 --
 
 INSERT INTO `ws_setups` (`id`, `slug`, `prod_id`, `file`, `setup`, `icon`, `version`, `channel`, `platform`, `arch`, `min_os_version`, `file_size`, `enabled`, `admin_id`, `updated_in`, `added_in`) VALUES
@@ -428,7 +474,7 @@ INSERT INTO `ws_setups` (`id`, `slug`, `prod_id`, `file`, `setup`, `icon`, `vers
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ws_subscriptions`
+-- Estrutura da tabela `ws_subscriptions`
 --
 
 CREATE TABLE `ws_subscriptions` (
@@ -439,12 +485,12 @@ CREATE TABLE `ws_subscriptions` (
   `status` enum('actived','cancelled') NOT NULL,
   `added_in` datetime NOT NULL DEFAULT current_timestamp(),
   `username` int(11) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ws_support`
+-- Estrutura da tabela `ws_support`
 --
 
 CREATE TABLE `ws_support` (
@@ -456,12 +502,12 @@ CREATE TABLE `ws_support` (
   `prod_id` int(11) UNSIGNED NOT NULL,
   `admin_id` int(11) UNSIGNED NOT NULL,
   `added_in` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ws_trials`
+-- Estrutura da tabela `ws_trials`
 --
 
 CREATE TABLE `ws_trials` (
@@ -472,27 +518,43 @@ CREATE TABLE `ws_trials` (
   `expires_in` datetime NOT NULL,
   `added_in` datetime NOT NULL DEFAULT current_timestamp(),
   `username` int(11) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `ws_trials`
+-- Extraindo dados da tabela `ws_trials`
 --
 
 INSERT INTO `ws_trials` (`id`, `slug`, `prod_id`, `notify`, `expires_in`, `added_in`, `username`) VALUES
 (1, 'SFuavzkV1iVJyxjz6k8g8LBOD0GZNAYI1moL', 1, 'true', '2021-05-21 06:16:08', '2021-04-21 01:16:32', 1);
 
 --
--- Indexes for dumped tables
+-- Índices para tabelas despejadas
 --
 
 --
--- Indexes for table `ws_admins`
+-- Índices para tabela `ws_admins`
 --
 ALTER TABLE `ws_admins`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `ws_clients`
+-- Índices para tabela `ws_app_files`
+--
+ALTER TABLE `ws_app_files`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `slug` (`slug`),
+  ADD UNIQUE KEY `original_name` (`original_name`) USING HASH;
+
+--
+-- Índices para tabela `ws_backups`
+--
+ALTER TABLE `ws_backups`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `slug` (`slug`),
+  ADD UNIQUE KEY `filename` (`filename`) USING HASH;
+
+--
+-- Índices para tabela `ws_clients`
 --
 ALTER TABLE `ws_clients`
   ADD PRIMARY KEY (`id`),
@@ -501,7 +563,7 @@ ALTER TABLE `ws_clients`
   ADD UNIQUE KEY `userkey` (`user_id`);
 
 --
--- Indexes for table `ws_coupons`
+-- Índices para tabela `ws_coupons`
 --
 ALTER TABLE `ws_coupons`
   ADD PRIMARY KEY (`id`),
@@ -509,7 +571,7 @@ ALTER TABLE `ws_coupons`
   ADD UNIQUE KEY `code` (`code`);
 
 --
--- Indexes for table `ws_devices`
+-- Índices para tabela `ws_devices`
 --
 ALTER TABLE `ws_devices`
   ADD PRIMARY KEY (`id`),
@@ -517,7 +579,7 @@ ALTER TABLE `ws_devices`
   ADD UNIQUE KEY `uuid` (`uuid`);
 
 --
--- Indexes for table `ws_features`
+-- Índices para tabela `ws_features`
 --
 ALTER TABLE `ws_features`
   ADD PRIMARY KEY (`id`),
@@ -525,7 +587,7 @@ ALTER TABLE `ws_features`
   ADD UNIQUE KEY `slug-title` (`slug_title`);
 
 --
--- Indexes for table `ws_images`
+-- Índices para tabela `ws_images`
 --
 ALTER TABLE `ws_images`
   ADD PRIMARY KEY (`id`),
@@ -533,7 +595,7 @@ ALTER TABLE `ws_images`
   ADD UNIQUE KEY `slug` (`slug`);
 
 --
--- Indexes for table `ws_keys_rules`
+-- Índices para tabela `ws_keys_rules`
 --
 ALTER TABLE `ws_keys_rules`
   ADD PRIMARY KEY (`id`),
@@ -541,7 +603,7 @@ ALTER TABLE `ws_keys_rules`
   ADD UNIQUE KEY `slug` (`slug`);
 
 --
--- Indexes for table `ws_licenses`
+-- Índices para tabela `ws_licenses`
 --
 ALTER TABLE `ws_licenses`
   ADD PRIMARY KEY (`id`),
@@ -550,20 +612,20 @@ ALTER TABLE `ws_licenses`
   ADD UNIQUE KEY `order_id` (`order_id`);
 
 --
--- Indexes for table `ws_linked`
+-- Índices para tabela `ws_linked`
 --
 ALTER TABLE `ws_linked`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `slug` (`slug_item`);
 
 --
--- Indexes for table `ws_orders`
+-- Índices para tabela `ws_orders`
 --
 ALTER TABLE `ws_orders`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `ws_otp_code`
+-- Índices para tabela `ws_otp_code`
 --
 ALTER TABLE `ws_otp_code`
   ADD PRIMARY KEY (`id`),
@@ -571,28 +633,28 @@ ALTER TABLE `ws_otp_code`
   ADD UNIQUE KEY `link_code` (`slug`);
 
 --
--- Indexes for table `ws_pages`
+-- Índices para tabela `ws_pages`
 --
 ALTER TABLE `ws_pages`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `slug` (`slug`);
 
 --
--- Indexes for table `ws_prices`
+-- Índices para tabela `ws_prices`
 --
 ALTER TABLE `ws_prices`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `slug` (`slug`);
 
 --
--- Indexes for table `ws_products`
+-- Índices para tabela `ws_products`
 --
 ALTER TABLE `ws_products`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `slug` (`slug_item`);
 
 --
--- Indexes for table `ws_sessions`
+-- Índices para tabela `ws_sessions`
 --
 ALTER TABLE `ws_sessions`
   ADD PRIMARY KEY (`id`),
@@ -600,21 +662,21 @@ ALTER TABLE `ws_sessions`
   ADD UNIQUE KEY `slug` (`slug`);
 
 --
--- Indexes for table `ws_setups`
+-- Índices para tabela `ws_setups`
 --
 ALTER TABLE `ws_setups`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `slug` (`slug`);
 
 --
--- Indexes for table `ws_subscriptions`
+-- Índices para tabela `ws_subscriptions`
 --
 ALTER TABLE `ws_subscriptions`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `slug` (`slug`);
 
 --
--- Indexes for table `ws_support`
+-- Índices para tabela `ws_support`
 --
 ALTER TABLE `ws_support`
   ADD PRIMARY KEY (`id`),
@@ -623,126 +685,138 @@ ALTER TABLE `ws_support`
   ADD UNIQUE KEY `file` (`file`);
 
 --
--- Indexes for table `ws_trials`
+-- Índices para tabela `ws_trials`
 --
 ALTER TABLE `ws_trials`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `slug` (`slug`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de tabelas despejadas
 --
 
 --
--- AUTO_INCREMENT for table `ws_admins`
+-- AUTO_INCREMENT de tabela `ws_admins`
 --
 ALTER TABLE `ws_admins`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `ws_clients`
+-- AUTO_INCREMENT de tabela `ws_app_files`
+--
+ALTER TABLE `ws_app_files`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `ws_backups`
+--
+ALTER TABLE `ws_backups`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `ws_clients`
 --
 ALTER TABLE `ws_clients`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `ws_coupons`
+-- AUTO_INCREMENT de tabela `ws_coupons`
 --
 ALTER TABLE `ws_coupons`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `ws_devices`
+-- AUTO_INCREMENT de tabela `ws_devices`
 --
 ALTER TABLE `ws_devices`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `ws_features`
+-- AUTO_INCREMENT de tabela `ws_features`
 --
 ALTER TABLE `ws_features`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `ws_images`
+-- AUTO_INCREMENT de tabela `ws_images`
 --
 ALTER TABLE `ws_images`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `ws_keys_rules`
+-- AUTO_INCREMENT de tabela `ws_keys_rules`
 --
 ALTER TABLE `ws_keys_rules`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `ws_licenses`
+-- AUTO_INCREMENT de tabela `ws_licenses`
 --
 ALTER TABLE `ws_licenses`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
--- AUTO_INCREMENT for table `ws_linked`
+-- AUTO_INCREMENT de tabela `ws_linked`
 --
 ALTER TABLE `ws_linked`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `ws_orders`
+-- AUTO_INCREMENT de tabela `ws_orders`
 --
 ALTER TABLE `ws_orders`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `ws_otp_code`
+-- AUTO_INCREMENT de tabela `ws_otp_code`
 --
 ALTER TABLE `ws_otp_code`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `ws_pages`
+-- AUTO_INCREMENT de tabela `ws_pages`
 --
 ALTER TABLE `ws_pages`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `ws_prices`
+-- AUTO_INCREMENT de tabela `ws_prices`
 --
 ALTER TABLE `ws_prices`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `ws_products`
+-- AUTO_INCREMENT de tabela `ws_products`
 --
 ALTER TABLE `ws_products`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `ws_sessions`
+-- AUTO_INCREMENT de tabela `ws_sessions`
 --
 ALTER TABLE `ws_sessions`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `ws_setups`
+-- AUTO_INCREMENT de tabela `ws_setups`
 --
 ALTER TABLE `ws_setups`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `ws_subscriptions`
+-- AUTO_INCREMENT de tabela `ws_subscriptions`
 --
 ALTER TABLE `ws_subscriptions`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `ws_support`
+-- AUTO_INCREMENT de tabela `ws_support`
 --
 ALTER TABLE `ws_support`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `ws_trials`
+-- AUTO_INCREMENT de tabela `ws_trials`
 --
 ALTER TABLE `ws_trials`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
